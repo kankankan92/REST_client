@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class DetectLanguageClient {
 
-    private static HashMap<String, String> languages = new HashMap<>();
+    private HashMap<String, String> languages = new HashMap<>();
 
 
     private void getLanguagesValues() {
@@ -28,18 +28,11 @@ public class DetectLanguageClient {
         });
     }
 
-    public void detectLanguageProgramm() {
+
+    public String detectLanguage(String string) {
         if (languages.isEmpty()) {
             getLanguagesValues();
         }
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Введите текст:");
-        String string = sc.nextLine();
-        System.out.println("Язык введенного текста:" + detectLanguage(string));
-
-    }
-
-    private String detectLanguage(String string) {
         String language = Unirest.post("https://ws.detectlanguage.com/0.2/detect")
                 .header("Authorization", "Bearer ef07271881c72360dddb2f307f1b0c23")
                 .queryString("q", string)
